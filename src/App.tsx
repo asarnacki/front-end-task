@@ -12,6 +12,7 @@ function App() {
         height=""
         url=""
         download_url=""
+        urlArray={[]}
       ></PictureList>
     </div>
   );
