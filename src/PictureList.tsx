@@ -1,4 +1,4 @@
-import { FunctionComponent, useEffect, useState } from "react";
+import { FunctionComponent, useEffect, useRef, useState } from "react";
 import "./PictureList.css";
 
 interface IPicture {
@@ -8,17 +8,16 @@ interface IPicture {
   height: string;
   url: string;
   download_url: string;
-  urlArray: string[];
 }
 
 const PictureList: FunctionComponent<IPicture> = () => {
-  const [picture, setPicture] = useState<IPicture[]>([])
-  const [urlMap, seturlMap] = useState<string[]>([])
-  const API = `https://picsum.photos/v2/list`
-  const unsplashAPI = `http://source.unsplash.com/`
-  const regex = new RegExp('^(.*)/([^/]*)$')
+  const [picture, setPicture] = useState<IPicture[]>([]);
+  const [limit, setLimit] = useState(3);
+  const API = `https://picsum.photos/v2/list/`;
+  const unsplashAPI = `http://source.unsplash.com/`;
+  const regex = new RegExp("^(.*)/([^/]*)$");
+  const MAX_LIMIT = 30;
 
-  
   const getPhotosFromApi = async () => {
     try {
       const response = await fetch(API);
@@ -28,30 +27,43 @@ const PictureList: FunctionComponent<IPicture> = () => {
       console.log(e);
     } finally {
     }
-    return { picture, urlMap };
-  }
+    return { picture };
+  };
   useEffect(() => {
     getPhotosFromApi();
   });
+  const handleShowMoreImages = () => {
+    if (limit <= MAX_LIMIT) {
+      setLimit(limit + 3);
+    }
+  };
+
   return (
     <>
-      <div>
-        {picture.map((x) => (
+      <div className="columns is-multiline">
+        {console.log(limit)}
+        {picture.slice(0, limit).map((x, index) => (
           <>
-            <div>{x.id}</div>
-            <div>{x.author}</div>
-            <div>{x.width}</div>
-            <div>{x.height}</div>
-            <img src={`${unsplashAPI}${x.url.split(regex)[2]}`} alt="data_photo"></img>
-            <div>{x.url}</div>
-            <div>{x.download_url}</div>
+            <img
+              className="column is-one-third"
+              src={`${unsplashAPI}${x.url.split(regex)[2]}`}
+              alt={x.author}
+            ></img>
           </>
         ))}
+      </div>
+      <div>
+        <button
+          className="button is-medium is-responsive"
+          disabled={limit >= MAX_LIMIT}
+          onClick={handleShowMoreImages}
+        >
+          LoadMore
+        </button>
       </div>
     </>
   );
 };
-
 export default PictureList;
 
 /*# Workate — Frontend Task
