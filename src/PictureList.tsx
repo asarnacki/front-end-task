@@ -41,7 +41,7 @@ const PictureList: FunctionComponent<IPicture> = () => {
   return (
     <>
       <div className="columns is-multiline">
-        {picture.slice(0, limit).map((x, index) => (
+        {picture.slice(limit, limit+3).map((x, index) => (
           <>
             <img
               className="column is-one-third"
