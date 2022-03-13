@@ -1,10 +1,11 @@
 import "./App.css";
 import "./PictureList";
 import PictureList from "./PictureList";
+import 'bulma/css/bulma.min.css';
 
 function App() {
   return (
-    <div className="App">
+    <div className="container">
       <PictureList
         id=""
         author=""
