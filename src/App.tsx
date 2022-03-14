@@ -3,6 +3,7 @@ import "./PictureList";
 import PictureList from "./PictureList";
 import 'bulma/css/bulma.min.css';
 import Header from "./Header";
+import Footer from "./Footer";
 
 function App() {
   return (
@@ -17,7 +18,8 @@ function App() {
         url=""
         download_url=""
       ></PictureList>
-    </div></>
+    </div>
+    <Footer></Footer></>
   );
 }
 

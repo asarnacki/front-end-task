@@ -37,6 +37,9 @@ const PictureList: FunctionComponent<IPicture> = () => {
       setLimit(limit + 3);
     }
   };
+  const showLessImages = () => {
+    setLimit(3);
+}
 
   return (
     <>
@@ -51,13 +54,19 @@ const PictureList: FunctionComponent<IPicture> = () => {
           </>
         ))}
       </div>
-      <div>
-        <button
-          className="button is-medium is-responsive"
+      <div className="columns">
+        <button 
+          className="margin:left 50px button is-medium is-white is-one-fifth is-responsive column"
           disabled={limit >= MAX_LIMIT}
           onClick={handleShowMoreImages}
         >
-          LoadMore
+          Load More
+        </button>
+        <button 
+          className="button is-medium is-leight is-one-fifth is-responsive column"
+          onClick={showLessImages}
+        >
+          Show Less
         </button>
       </div>
     </>
